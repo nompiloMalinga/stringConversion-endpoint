@@ -1,4 +1,4 @@
-FROM gradle:8.5-jdk17-alpine AS build
+FROM gradle:8.14.3-jdk17-alpine AS build
 WORKDIR /app
 COPY . .
 RUN gradle clean bootJar --no-daemon
