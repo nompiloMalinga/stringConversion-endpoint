@@ -1,6 +1,11 @@
+FROM gradle:8.5-jdk17-alpine AS build
+WORKDIR /app
+COPY . .
+RUN gradle clean bootJar --no-daemon
+
 FROM amazoncorretto:17-alpine
 WORKDIR /app
 
-COPY build/libs/string-conversion-api-0.0.1-SNAPSHOT.jar app.jar
+COPY  --from=build /app/build/libs/*.jar app.jar
 EXPOSE 8080
 CMD ["java", "-jar","app.jar"]
